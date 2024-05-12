@@ -1,0 +1,79 @@
+/*  ----------------------------------------------------------------------------
+    Nav toggle
+----------------------------------------------------------------------------- */
+
+$nav-toggle__background-color: #333;
+
+.nav-toggle {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    opacity: .25;
+    position: relative;
+    transition: .3s ease;
+
+    @media (hover: hover) {
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &:before,
+    &:after {
+        background-color: $nav-toggle__background-color;
+        content: '';
+        display: block;
+        height: 4px;
+        left: 0;
+        position: absolute;
+        transition: .3s;
+        width: 100%;
+    }
+
+    &:before {
+        transform: translate(0, -8px);
+    }
+
+    &:after {
+        transform: translate(0, 8px);
+    }
+
+    i {
+        background-color: $nav-toggle__background-color;
+        display: block;
+        height: 4px;
+        transition: opacity .3s;
+        width: 40px;
+    }
+}
+
+#ck-nav-toggle:checked {
+    + .nav-toggle {
+        opacity: 1;
+
+        &:before {
+            transform: rotate(45deg);
+        }
+
+        &:after {
+            transform: rotate(-45deg);
+        }
+
+        i {
+            opacity: 0;
+        }
+    }
+
+    ~ #page-nav {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    ~ .logo {
+        @media (max-width: 647px) {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+}

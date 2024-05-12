@@ -1,0 +1,51 @@
+SetEnv MYSQL_HOST           your_mysql_host
+SetEnv MYSQL_USERNAME       your_mysql_username
+SetEnv MYSQL_PASSWORD       your_mysql_password
+SetEnv MYSQL_DBNAME         your_mysql_dbname
+
+SetEnv JIRA_BASE_URL        your_jira_base_url
+SetEnv JIRA_API_USERNAME    your_jira_api_username
+SetEnv JIRA_API_PASSWORD    your_jira_api_password
+
+Options -Indexes
+
+<Files .htaccess>
+    Require all denied
+</Files>
+
+AddType image/svg+xml svg
+AddType image/svg+xml svgz
+AddEncoding x-gzip .svgz
+
+# Set caching for images, fonts, CSS, and JavaScript files to one year
+<FilesMatch ".(ico|pdf|jpg|jpeg|png|gif|svg|js|css|woff)$">
+    Header set Cache-Control "max-age=31536000, public"
+</FilesMatch>
+
+# Disable caching for index.php
+<IfModule mod_headers.c>
+    <Files "index.php">
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+        Header set Pragma "no-cache"
+    </Files>
+</IfModule>
+
+# Enable ETags
+FileETag MTime Size
+
+# Compress text files
+<IfModule mod_deflate.c>
+    <FilesMatch "\.(js|css|html|php)$">
+        SetOutputFilter DEFLATE
+    </FilesMatch>
+</IfModule>
+
+# Instructs the client to keep the connection open for future requests
+<IfModule mod_headers.c>
+    Header set Connection keep-alive
+</IfModule>
+
+#AuthName "Authorized personnel only"
+#AuthType Basic
+#AuthUserFile ./.htpasswd
+#Require valid-user
