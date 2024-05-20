@@ -1,0 +1,47 @@
+@use './../css/easepick.bundle@1.2.1.css';
+
+:host {
+    --color-fg-primary: #333;
+    --color-bg-inrange: #ffeb96;
+}
+
+.container {
+    border-radius: 0;
+    border: 1px solid #ccc;
+    position: static;
+    transition: none;
+
+    &.show {
+        box-shadow: -3px 3px 2px rgba(0, 0, 0, .1);
+    }
+}
+
+.calendar > .days-grid > .day {
+    cursor: pointer;
+
+    &.today {
+        font-weight: 700;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        border-left: 0;
+        border-right: 0;
+
+        &:not(.inline).show {
+            bottom: auto !important;
+        }
+
+        &.preset-plugin main {
+            &.preset-left,
+            &.preset-right {
+                grid-template-columns: auto;
+            }
+        }
+    }
+
+    .preset-plugin-container {
+        display: none;
+    }
+}

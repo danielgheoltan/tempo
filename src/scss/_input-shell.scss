@@ -1,0 +1,35 @@
+/*  ----------------------------------------------------------------------------
+    Input shell
+----------------------------------------------------------------------------- */
+
+$input-shell__readonly__background-color: #ddd;
+$input-shell__readonly-hover__background-color: #ffcc5b;
+
+.input-shell {
+    bottom: 0;
+    cursor: text;
+    left: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    &:has([readonly]) {
+        &:after {
+            background-color: $input-shell__readonly__background-color;
+            content: '';
+            display: block;
+            height: 14px;
+            margin-top: -7px;
+            mask: url('../images/sprite.svg#_lock') 50% 50%;
+            pointer-events: none;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            width: 14px;
+        }
+
+        &:hover:after {
+            background-color: $input-shell__readonly-hover__background-color;
+        }
+    }
+}

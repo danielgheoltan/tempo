@@ -1,0 +1,8 @@
+/*!
+ * tempo v1.0.0
+ * https://github.com/danielgheoltan/tempo.git
+ *
+ * Copyright (c) 2024 Daniel Gheoltan. All rights reserved.
+ * This source code is licensed under the LGPLv3 license:
+ * http://www.opensource.org/licenses/lgpl-3.0.html
+ */

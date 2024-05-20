@@ -1,0 +1,70 @@
+/*  ----------------------------------------------------------------------------
+    Date
+----------------------------------------------------------------------------- */
+
+$date-td__background-color: #f3f3f3;
+$date-td__active__background-color: #fff;
+$date-td__border-color: #ccc;
+$date-thead-th__background-color: #333;
+$date-thead-th__background-color__free: #006894;
+$date-thead-th__background-color__fulfilled: #33855d;
+$date-thead-th__color: #fff;
+$date-thead-th__color__free: #fff;
+$date-thead-th__color__fulfilled: #fff;
+
+.date {
+    border-collapse: collapse;
+    font-family: Verdana, sans-serif;
+    margin-bottom: 20px;
+    width: 100%;
+
+    td,
+    th {
+        border: 1px solid $date-td__border-color;
+        padding: 0;
+        position: relative;
+    }
+
+    th {
+        font-size: 15px;
+        font-weight: 400;
+        padding: 10px;
+    }
+
+    thead th {
+        background-color: $date-thead-th__background-color;
+        border-color: $date-thead-th__background-color;
+        color: $date-thead-th__color;
+    }
+
+    &.loading-db [data-name="total_time_spent"] {
+        visibility: hidden;
+    }
+
+    &.loading-db [data-for="total_time_spent"] {
+        &:before {
+            content: '';
+        }
+    }
+
+    &[data-fulfilled="true"] thead th {
+        background-color: $date-thead-th__background-color__fulfilled;
+        border-color: $date-thead-th__background-color__fulfilled;
+        color: $date-thead-th__color__fulfilled;
+    }
+
+    &.free thead th {
+        background-color: $date-thead-th__background-color__free;
+        border-color: $date-thead-th__background-color__free;
+        color: $date-thead-th__color__free;
+    }
+
+    td {
+        background-color: $date-td__background-color;
+    }
+
+    td:focus-within,
+    tr[data-index] td {
+        background-color: $date-td__active__background-color;
+    }
+}
