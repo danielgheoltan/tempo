@@ -1,0 +1,101 @@
+/*  ----------------------------------------------------------------------------
+    General
+----------------------------------------------------------------------------- */
+
+* {
+    box-sizing: border-box;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font: 12px/18px -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+label {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    display: inline-block;
+}
+
+input:-webkit-autofill {
+    &:active,
+    &:focus,
+    &:hover {
+        -webkit-box-shadow: 0 0 0 30px #fff;
+    }
+}
+
+input[type="text"],
+textarea {
+    border: 0;
+    color: inherit;
+    display: block;
+    font: inherit;
+    outline: 0;
+    padding: 8px;
+    width: 100%;
+}
+
+textarea {
+    align-content: center; /* TRICK! */
+    min-height: 34px; /* TRICK! */
+    overflow: auto;
+    resize: vertical;
+
+    &[rows="1"] { /* Firefox */
+        height: 34px;
+    }
+
+    &[rows="3"] { /* Firefox */
+        height: 70px;
+    }
+}
+
+@media (max-width: 647px) {
+    textarea {
+        field-sizing: content; /* TRICK! */
+        height: auto !important;
+    }
+}
+
+::placeholder {
+    opacity: .26;
+}
+
+::selection {
+    background: #ffeb96;
+}
+
+svg {
+    &,
+    &:hover .h {
+        display: block;
+    }
+
+    .h,
+    &:hover .d {
+        display: none;
+    }
+}
+
+hr {
+    background: url('../images/hr.svg') no-repeat 50% 50% / contain;
+    border: 0;
+    height: 40px;
+    margin: 40px auto;
+}

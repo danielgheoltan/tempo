@@ -1,0 +1,33 @@
+/*  ----------------------------------------------------------------------------
+    Spinners
+----------------------------------------------------------------------------- */
+
+$spinner-primary__border-color: rgba(0, 0, 0, .2);
+$spinner-secondary__border-top-color: #000;
+
+$spinner-secondary__border-color__light: rgba(255, 255, 255, .2);
+$spinner-secondary__border-top-color__light: #fff;
+
+@keyframes spinner {
+    to { transform: rotate(360deg); }
+}
+
+[data-for]:before {
+    animation: spinner .6s linear infinite;
+    border-radius: 50%;
+    border: 2px solid $spinner-primary__border-color;
+    border-top-color: $spinner-secondary__border-top-color;
+    box-sizing: border-box;
+    height: 16px;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    position: absolute;
+    top: 50%;
+    width: 16px;
+}
+
+[data-for="total_time_spent"]:before {
+    border-color: $spinner-secondary__border-color__light;
+    border-top-color: $spinner-secondary__border-top-color__light;
+}

@@ -1,0 +1,40 @@
+/*  ----------------------------------------------------------------------------
+    Datepicker
+----------------------------------------------------------------------------- */
+
+.datepicker {
+    &-form {
+        align-items: center;
+        cursor: pointer;
+        display: flex;
+        position: relative;
+    }
+
+    &-input {
+        height: 0;
+        position: absolute;
+        visibility: hidden;
+        width: 0;
+    }
+
+    &-icon {
+        cursor: pointer;
+        opacity: .25;
+        transition: .3s ease;
+
+        &.active {
+            opacity: 1;
+        }
+
+        @media (hover: hover) {
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.easepick-wrapper {
+    right: 0;
+    top: 100%;
+}

@@ -1,0 +1,113 @@
+/*  ----------------------------------------------------------------------------
+    Log
+----------------------------------------------------------------------------- */
+
+.log {
+    &.loading-jira {
+        pointer-events: none;
+    }
+
+    /** Inputs */
+    input[type="text"],
+    textarea {
+        background: transparent;
+        text-overflow: ellipsis;
+    }
+
+    input[type="text"] {
+        height: 100%;
+    }
+
+    /** Icons */
+    .icon {
+        align-items: center;
+        display: flex;
+        height: 34px;
+        justify-content: center;
+        pointer-events: none;
+        width: 34px;
+
+        &[onclick] {
+            cursor: pointer;
+        }
+    }
+
+    &[data-index] .icon {
+        pointer-events: initial;
+    }
+
+    &:has([data-value=""]) .icon--jira-status {
+        pointer-events: none;
+    }
+    
+    .icon--db-status {
+        color: #ccc;
+    }
+
+    &[data-index] .icon--db-status {
+        color: #42b883;
+    }
+
+    .icon--jira-status {
+        color: #ccc;
+    }
+
+    &[data-index] .icon--jira-status {
+        color: #333;
+
+        &:hover {
+            color: #2684ff;
+        }
+    }
+
+    &[data-id] .icon--jira-status {
+        color: #42b883;
+    }
+
+    &[data-id][data-synced="false"] .icon--jira-status {
+        color: #2684ff;
+    }
+
+    /** Inputs with data attributes */
+    [data-name="issue_key"]:not(:placeholder-shown) {
+        text-transform: uppercase;
+    }
+
+    [data-name="time_spent"] {
+        text-align: center;
+    }
+
+    &.loading-db [data-name^="db_"],
+    &.loading-jira [data-name^="jira_"] {
+        visibility: hidden;
+    }
+
+    &.loading-db [data-for^="db_"],
+    &.loading-jira [data-for^="jira_"] {
+        &:before {
+            content: '';
+        }
+    }
+}
+
+body.cmd-pressed {
+    .log {
+        &:hover input[data-name="issue_key"]:not(:placeholder-shown) {
+            caret-color: transparent;
+            color: #c00;
+            cursor: pointer;
+            pointer-events: initial;
+            text-decoration: underline;
+        }
+
+        &[data-index]:not([data-id]) td[data-for="db_status"]:hover {
+            .icon--db-status {
+                display: none;
+            }
+
+            .icon--db-delete {
+                display: flex !important;
+            }
+        }
+    }
+}
