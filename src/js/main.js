@@ -27,52 +27,52 @@ String.prototype.toSeconds = function () {
 };
 
 DateTime.prototype.firstDayOfPreviousMonth = function () {
-    // Clone this DateTime object representing the current date
-    let dt = this.clone();
+    // Create a date object for the current date
+    const now = new Date();
 
-    // Set the month to the previous month
-    dt.setMonth(dt.getMonth() - 1);
+    // Get the first day of the current month
+    const firstDayOfCurrentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
-    // Set the date to 1, which gives the first day of the month
-    dt.setDate(1);
+    // Subtract one month from the first day of the current month
+    const firstDayOfPreviousMonth = new Date(firstDayOfCurrentMonth.setMonth(firstDayOfCurrentMonth.getMonth() - 1));
 
-    return dt;
+    return new DateTime(firstDayOfPreviousMonth);
 };
 
 DateTime.prototype.lastDayOfPreviousMonth = function () {
-    // Clone this DateTime object representing the current date
-    let dt = this.clone();
+    // Create a date object for the current date
+    const now = new Date();
 
-    // Set the date to 0, which gives the last day of the previous month
-    dt.setDate(0);
+    // Get the first day of the current month
+    const firstDayOfCurrentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
-    return dt;
+    // Subtract one day from the first day of the current month
+    const lastDayOfPreviousMonth = new Date(firstDayOfCurrentMonth - 1);
+
+    return new DateTime(lastDayOfPreviousMonth);
 };
 
 DateTime.prototype.firstDayOfCurrentMonth = function () {
-    // Clone this DateTime object representing the current date
-    let dt = this.clone();
+    // Create a date object for the current date
+    const now = new Date();
 
-    // Set the date to 1, which gives the first day of the month
-    dt.setDate(1);
+    // Get the first day of the current month
+    const firstDayOfCurrentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
-    return dt;
+    return new DateTime(firstDayOfCurrentMonth);
 };
 
 DateTime.prototype.lastDayOfCurrentMonth = function () {
-    // Clone this DateTime object representing the current date
-    let dt = this.clone();
+    // Create a date object for the current date
+    const now = new Date();
 
-    // Get month of the current date
-    const month = dt.getMonth();
+    // Get the first day of the next month
+    const firstDayOfNextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
 
-    // Set the month to the next month
-    dt.setMonth(month + 1);
+    // Subtract one day from the first day of the next month
+    const lastDayOfCurrentMonth = new Date(firstDayOfNextMonth - 1);
 
-    // Set the date to 0, which gives the last day of the current month
-    dt.setDate(0);
-
-    return dt;
+    return new DateTime(lastDayOfCurrentMonth);
 };
 
 DateTime.prototype.getWeekFirstDate = function () {

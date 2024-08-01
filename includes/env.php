@@ -1,6 +1,6 @@
 <?php
 
-$_ENV['timestamp'] = md5('2024-07-29 00:00');
+$_ENV['timestamp'] = md5('2024-07-31 00:00');
 $_ENV['protocol'] = (empty($_SERVER['HTTPS']) ? 'http' : 'https');
 $_ENV['base_url'] = $_ENV['protocol'] . '://' . $_SERVER['HTTP_HOST'] . '/tempo';
 
@@ -111,52 +111,32 @@ $_ENV['date_formatters'] = [
 
 $beginDateTime = new DateTime();
 $endDateTime = new DateTime();
+$today = new DateTime();
 
-$sqlCommand = <<<MYSQL
-    SELECT
-    	DATE(`started`) AS `date`, 
-        SUM(TIME_TO_SEC(`time_spent`)) AS `total_time_spent`,
-        MIN(`synced`) AS `synced`
-    FROM `timesheet`
-    GROUP BY 
-        `date`
-    HAVING (`total_time_spent` < 28800) OR (`synced` = 0)
-    ORDER BY 
-        `date` ASC
-    LIMIT 1;
-MYSQL;
-
-$result = $_ENV['mysqli']->query($sqlCommand);
-
-/*
-if ($result && $result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $beginDateTime = new DateTime($row['date']);
-}
-*/
-
-$beginDateTime = new DateTime();
 $beginDateTime->modify('first day of this month');
-
-// Change the $beginDateTime to its previous day...
-$beginDateTime->sub(new DateInterval('P1D'));
-
-switch ($beginDateTime->format('w')) {
-    case '6':
-        // If $beginDateTime is Saturday, change it to Friday.
-        $beginDateTime->sub(new DateInterval('P1D'));
-        break;
-    case '0':
-        // If $beginDateTime is Sunday, change it to Friday.
-        $beginDateTime->sub(new DateInterval('P2D'));
-        break;
-}
 
 $datepicker = $_SESSION['form_data']['datepicker'] ?? false;
 if ($datepicker) {
     list($begin, $end) = explode(' - ', $datepicker);
     $beginDateTime = new DateTime($begin);
     $endDateTime = new DateTime($end);
+}
+
+$interval = $beginDateTime->diff($today);
+if ($interval->days <= 7) {
+    // Change the $beginDateTime to its previous day...
+    $beginDateTime->sub(new DateInterval('P1D'));
+
+    switch ($beginDateTime->format('w')) {
+        case '6':
+            // If $beginDateTime is Saturday, change it to Friday.
+            $beginDateTime->sub(new DateInterval('P1D'));
+            break;
+        case '0':
+            // If $beginDateTime is Sunday, change it to Friday.
+            $beginDateTime->sub(new DateInterval('P2D'));
+            break;
+    }
 }
 
 $_ENV['period'] = new DatePeriod(
