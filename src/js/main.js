@@ -268,6 +268,20 @@ window.APP = {
     /**
      * @param {HTMLElement} tableElement
      */
+    computeTotalTime: function (tableElement) {
+        let totalSpentTimeValueSeconds = 0;
+        tableElement.querySelectorAll('[data-name="time_spent"]').forEach((e) => {
+            totalSpentTimeValueSeconds += e.value.toSeconds();
+        });
+
+        const totalSpentTimeElement = tableElement.querySelector('[data-name="total_time_spent"]');
+        totalSpentTimeElement.innerText = totalSpentTimeValueSeconds.fromSecondsToHoursMinutesFormat();
+        tableElement.dataset.fulfilled = (totalSpentTimeValueSeconds < 8 * 60 * 60) ? 'false' : 'true';
+    },
+
+    /**
+     * @param {HTMLElement} tableElement
+     */
     addLog: function (tableElement) {
         const dataStarted = tableElement.dataset.started,
               tbodyElement = tableElement.querySelector('tbody');
@@ -367,14 +381,7 @@ window.APP = {
                     rowElement.dataset.index = response.index;
 
                     if (isTimeSpent) {
-                        let totalSpentTimeValueSeconds = 0;
-                        tableElement.querySelectorAll('[data-name="time_spent"]').forEach((e) => {
-                            totalSpentTimeValueSeconds += e.value.toSeconds();
-                        });
-
-                        const totalSpentTimeElement = tableElement.querySelector('[data-name="total_time_spent"]');
-                        totalSpentTimeElement.innerText = totalSpentTimeValueSeconds.fromSecondsToHoursMinutesFormat();
-                        tableElement.dataset.fulfilled = (totalSpentTimeValueSeconds < 8 * 60 * 60) ? 'false' : 'true';
+                        APP.computeTotalTime(tableElement);
                     }
 
                     rowElement.dataset.synced = 'false';
@@ -440,7 +447,7 @@ window.APP = {
                 element.value = '';
             }
         },
- 
+
         /**
          * With respect to the following comments, we consider the input value to be the form of "x:yz".
          *
@@ -582,20 +589,25 @@ window.APP = {
          */
         onclick: function (event) {
             if (confirm(APP.translate('Are you sure you want to delete this record?'))) {
-                const rowElement = event.currentTarget.closest('tr');
+                const rowElement = event.currentTarget.closest('tr'),
+                      tableElement = rowElement.closest('table');
 
                 rowElement.classList.remove('error');
 
                 const index = rowElement.dataset.index;
 
                 if (index) {
+                    tableElement.classList.add('loading-db');
                     rowElement.classList.add('loading-db');
+
                     APP.fetch(APP.DB.deleteUrl, {
                         'index': index
                     })
                     .then((response) => {
                         rowElement.classList.remove('loading-db');
                         rowElement.remove();
+                        APP.computeTotalTime(tableElement);
+                        tableElement.classList.remove('loading-db');
                     });
                 }
             }

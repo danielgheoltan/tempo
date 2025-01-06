@@ -26,7 +26,7 @@ $logRowTemplate = <<<HTML
                  data-title="{$_ENV['i18n']('Save')}"
                  onclick="APP.ButtonJira.onclick(event)"
                  style="--tooltip-delta-y: 4px;"
-            > 
+            >
                 <svg viewBox="0 0 32 32" width="16" height="16">
                     <use xlink:href="images/sprite.svg#jira-status" />
                 </svg>

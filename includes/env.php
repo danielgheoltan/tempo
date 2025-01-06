@@ -1,6 +1,6 @@
 <?php
 
-$_ENV['timestamp'] = md5('2024-07-31 00:00');
+$_ENV['timestamp'] = md5('2024-09-05 00:00');
 $_ENV['protocol'] = (empty($_SERVER['HTTPS']) ? 'http' : 'https');
 $_ENV['base_url'] = $_ENV['protocol'] . '://' . $_SERVER['HTTP_HOST'] . '/tempo';
 
@@ -12,12 +12,28 @@ $_ENV['free_days'] = [ // TODO
     '2024-05-02' => 'Time off: Vacation',
     '2024-05-03' => 'Public holiday: Orthodox Good Friday',
     '2024-05-06' => 'Public holiday: Orthodox Easter Monday',
-    '2024-06-24' => 'Orthodox Pentecost Monday',
+    '2024-06-24' => 'Public holiday: Orthodox Pentecost Monday',
     '2024-07-15' => 'Time off: Vacation',
     '2024-07-16' => 'Time off: Vacation',
     '2024-07-17' => 'Time off: Vacation',
     '2024-07-18' => 'Time off: Vacation',
     '2024-07-19' => 'Time off: Vacation',
+    '2024-08-15' => 'Public holiday: St Mary\'s Day',
+    '2024-09-23' => 'Time off: Vacation',
+    '2024-09-24' => 'Time off: Vacation',
+    '2024-09-25' => 'Time off: Vacation',
+    '2024-09-26' => 'Time off: Vacation',
+    '2024-09-27' => 'Time off: Vacation',
+    '2024-11-30' => 'Public holiday: Feast of Saint Andrew',
+    '2024-12-01' => 'Public holiday: Great Union Day',
+    '2024-12-23' => 'Time off: Vacation',
+    '2024-12-24' => 'Time off: Vacation',
+    '2024-12-25' => 'Public holiday: Christmas Day',
+    '2024-12-26' => 'Public holiday: St Stephen\'s Day',
+    '2024-12-27' => 'Time off: Vacation',
+    '2024-12-30' => 'Time off: Vacation',
+    '2024-12-31' => 'Time off: Vacation',
+    '2025-01-03' => 'Time off: Vacation',
 ];
 $_ENV['locale'] = $_GET['locale'] ?? 'en_GB';
 $_ENV['locale_alt'] = ($_ENV['locale'] === 'en_GB') ? 'ro_RO' : 'en_GB';
@@ -181,7 +197,7 @@ if ($result && $result->num_rows > 0) {
         try {
             $timeSpent = new DateInterval($row['time_spent_formatted']);
         } catch (Exception $e) {}
-        
+
         $timeSpentFormatted = ($timeSpent ? $timeSpent->format('%h:%I') : '');
 
         try {
